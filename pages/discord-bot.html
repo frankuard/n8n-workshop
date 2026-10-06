@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Part 4 - Custom Discord Bot | n8n Workshop</title>
+
+  <link
+    rel="stylesheet"
+    href="../css/style.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- NAVIGATION -->
+
+  <nav class="navbar">
+
+    <div class="nav-container">
+
+      <div class="nav-links">
+
+        <a href="../index.html">
+          Home
+        </a>
+
+        <a href="basic-automation.html">
+          Part 1: Basic Automation
+        </a>
+
+        <a href="ai-automation.html">
+          Part 2: AI Automation
+        </a>
+
+        <a href="discord.html">
+          Part 3: Discord
+        </a>
+
+        <a
+          href="discord-bot.html"
+          class="active"
+        >
+          Part 4: Custom Discord Bot
+        </a>
+
+        <a href="deployment.html">
+          Part 5: Local Deployment
+        </a>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+
+  <main class="container">
+
+
+    <!-- HEADER -->
+
+    <header>
+
+      <h1>
+        Part 4: Create Our Own Discord Bot
+      </h1>
+
+      <p>
+        Build a custom Discord bot and connect it to our
+        n8n AI automation.
+      </p>
+
+    </header>
+
+
+    <!-- SECTION 15 -->
+
+    <section>
+
+      <h2>
+        15. (Optional) Create Our Own Discord Bot
+      </h2>
+
+      <p>
+        In this optional advanced section, we will create
+        our own Discord bot.
+      </p>
+
+      <p>
+        The bot will allow our n8n workflow to send messages
+        to a Discord server automatically.
+      </p>
+
+
+      <div class="highlight">
+
+        <strong>
+          Our goal:
+        </strong>
+
+        <p>
+          Student submits request →
+          AI processes it →
+          Our Discord bot sends the result
+          to the Discord channel.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- DEVELOPER PORTAL -->
+
+    <section>
+
+      <h2>
+        15.1 Open Discord Developer Portal
+      </h2>
+
+      <p>
+        Open the Discord Developer Portal.
+      </p>
+
+
+      <ol>
+
+        <li>
+          Create a new application.
+        </li>
+
+        <li>
+          Give your application a name.
+        </li>
+
+        <li>
+          Open the application.
+        </li>
+
+      </ol>
+
+
+      <p>
+
+        <a
+          href="https://discord.com/developers/applications"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open Discord Developer Portal →
+        </a>
+
+      </p>
+
+    </section>
+
+
+    <!-- CREATE BOT -->
+
+    <section>
+
+      <h2>
+        15.2 Create the Bot
+      </h2>
+
+      <ol>
+
+        <li>
+          Open the
+          <strong>Bot</strong>
+          section of your Discord application.
+        </li>
+
+        <li>
+          Create the bot.
+        </li>
+
+        <li>
+          Give the bot a suitable name.
+        </li>
+
+        <li>
+          Set a profile picture if required.
+        </li>
+
+      </ol>
+
+
+      <h3>
+        Example Bot Name
+      </h3>
+
+
+      <div class="example-box">
+
+        <strong>
+          AI Horizon Assistant
+        </strong>
+
+      </div>
+
+    </section>
+
+
+    <!-- INSTALLATION -->
+
+    <section>
+
+      <h2>
+        15.3 Install the Bot
+      </h2>
+
+      <p>
+        Configure the bot's installation settings and invite
+        it to your Discord server.
+      </p>
+
+
+      <h3>
+        Required Permissions
+      </h3>
+
+
+      <ul>
+
+        <li>
+          View Channels
+        </li>
+
+        <li>
+          Send Messages
+        </li>
+
+      </ul>
+
+
+      <p>
+        Give only the permissions that the bot actually needs.
+      </p>
+
+    </section>
+
+
+    <!-- SECURITY -->
+
+    <section>
+
+      <h2>
+        15.4 Protect the Bot Token
+      </h2>
+
+
+      <div class="warning">
+
+        <h3>
+          Important Security Warning
+        </h3>
+
+        <p>
+          Your Discord bot token is private.
+        </p>
+
+        <p>
+          Never share it publicly.
+        </p>
+
+        <ul>
+
+          <li>
+            Do not upload it to GitHub.
+          </li>
+
+          <li>
+            Do not post it in Discord.
+          </li>
+
+          <li>
+            Do not put it in screenshots.
+          </li>
+
+          <li>
+            Do not put it directly into public source code.
+          </li>
+
+        </ul>
+
+      </div>
+
+
+      <p>
+        Store the bot credentials securely using the n8n
+        credential system.
+      </p>
+
+    </section>
+
+
+    <!-- CONNECT -->
+
+    <section>
+
+      <h2>
+        15.5 Connect the Bot to n8n
+      </h2>
+
+      <p>
+        After the bot has been created and invited to the
+        Discord server, configure the Discord node in n8n.
+      </p>
+
+
+      <ol>
+
+        <li>
+          Open the Discord node.
+        </li>
+
+        <li>
+          Create or select the required Discord credential.
+        </li>
+
+        <li>
+          Configure the server.
+        </li>
+
+        <li>
+          Select the Discord channel.
+        </li>
+
+        <li>
+          Configure the message.
+        </li>
+
+      </ol>
+
+    </section>
+
+
+    <!-- WORKFLOW -->
+
+    <section>
+
+      <h2>
+        15.6 Final Workflow
+      </h2>
+
+
+      <div class="flow">
+
+        <span>
+          Student Form
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          AI / Groq
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Custom Discord Bot
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Discord Channel
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- MESSAGE -->
+
+    <section>
+
+      <h2>
+        15.7 Example Bot Message
+      </h2>
+
+
+      <div class="discord-message">
+
+        <h3>
+          AI Horizon Assistant
+        </h3>
+
+        <p>
+          <strong>
+            New Student Request
+          </strong>
+        </p>
+
+        <p>
+          <strong>
+            Student:
+          </strong>
+          Roshan Karki
+        </p>
+
+        <p>
+          <strong>
+            Department:
+          </strong>
+          DSSD
+        </p>
+
+        <p>
+          <strong>
+            Subject:
+          </strong>
+          Leave Request
+        </p>
+
+        <p>
+          <strong>
+            Message:
+          </strong>
+        </p>
+
+        <p>
+          I am feeling unwell today and will not be able
+          to attend my classes. I would therefore like to
+          request leave for today.
+        </p>
+
+        <small>
+          Automated by n8n
+        </small>
+
+      </div>
+
+    </section>
+
+
+    <!-- CHALLENGE -->
+
+    <section>
+
+      <h2>
+        15.8 Optional Challenge
+      </h2>
+
+      <p>
+        Try modifying the bot message so that it automatically
+        includes:
+      </p>
+
+
+      <ul>
+
+        <li>
+          Student name
+        </li>
+
+        <li>
+          Student email
+        </li>
+
+        <li>
+          Department
+        </li>
+
+        <li>
+          Subject
+        </li>
+
+        <li>
+          AI-generated email
+        </li>
+
+      </ul>
+
+
+      <div class="highlight">
+
+        <strong>
+          Challenge:
+        </strong>
+
+        <p>
+          Can you make the Discord bot produce a clean
+          notification automatically every time a student
+          submits the form?
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- NEXT -->
+
+    <section>
+
+      <h2>
+        Ready for Part 5?
+      </h2>
+
+      <p>
+        In the final part, we will run n8n locally using
+        Docker and expose it using a Cloudflare Quick Tunnel.
+      </p>
+
+      <p>
+
+        <a href="deployment.html">
+          Continue to Part 5: Local Deployment →
+        </a>
+
+      </p>
+
+    </section>
+
+
+    <footer>
+
+      <p>
+        n8n AI Automation Workshop
+      </p>
+
+      <p>
+        AI Horizon
+      </p>
+
+    </footer>
+
+
+  </main>
+
+
+  <script src="../js/script.js"></script>
+
+</body>
+
+</html>

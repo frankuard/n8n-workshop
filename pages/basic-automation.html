@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Part 1 - Basic Automation | n8n Workshop</title>
+
+  <link
+    rel="stylesheet"
+    href="../css/style.css"
+  >
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+
+  <nav class="navbar">
+
+    <div class="nav-container">
+
+      <div class="nav-links">
+
+        <a href="../index.html">
+          Home
+        </a>
+
+        <a
+          href="basic-automation.html"
+          class="active"
+        >
+          Part 1: Basic Automation
+        </a>
+
+        <a href="ai-automation.html">
+          Part 2: AI Automation
+        </a>
+
+        <a href="discord.html">
+          Part 3: Discord
+        </a>
+
+        <a href="discord-bot.html">
+          Part 4: Custom Discord Bot
+        </a>
+
+        <a href="deployment.html">
+          Part 5: Local Deployment
+        </a>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+
+  <main class="container">
+
+    <!-- PAGE HEADER -->
+
+    <header>
+
+      <h1>
+        Part 1: Basic Automation
+      </h1>
+
+      <p>
+        Build your first n8n automation by connecting a student
+        form to Gmail.
+      </p>
+
+    </header>
+
+
+    <!-- SECTION 1 -->
+
+    <section>
+
+      <h2>
+        1. Part One: Basic Automation
+      </h2>
+
+      <p>
+        In this part, we will create our first simple automation
+        using n8n.
+      </p>
+
+      <p>
+        The goal is to allow a student to submit a form and
+        automatically send that information through Gmail.
+      </p>
+
+
+      <div class="highlight">
+
+        <strong>
+          Basic idea:
+        </strong>
+
+        <p>
+          Student fills the form →
+          n8n receives the information →
+          Gmail sends the email automatically.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- SECTION 2 -->
+
+    <section>
+
+      <h2>
+        2. Create the Student Form
+      </h2>
+
+      <p>
+        The first step is to create a form that collects the
+        information required from the student.
+      </p>
+
+
+      <h3>
+        Form Fields
+      </h3>
+
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              Field
+            </th>
+
+            <th>
+              Type
+            </th>
+
+            <th>
+              Example
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <tr>
+
+            <td>
+              Email
+            </td>
+
+            <td>
+              Email
+            </td>
+
+            <td>
+              faculty@gmail.com
+            </td>
+
+          </tr>
+
+
+          <tr>
+
+            <td>
+              Department / Faculty
+            </td>
+
+            <td>
+              Dropdown
+            </td>
+
+            <td>
+              SSD
+            </td>
+
+          </tr>
+
+
+          <tr>
+
+            <td>
+              Email Subject
+            </td>
+
+            <td>
+              Text
+            </td>
+
+            <td>
+              Leave Request
+            </td>
+
+          </tr>
+
+
+          <tr>
+
+            <td>
+              Message
+            </td>
+
+            <td>
+              Textarea
+            </td>
+
+            <td>
+              I am feeling sick and need leave for today's class.
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+
+      <h3>
+        Department Options
+      </h3>
+
+
+      <ul>
+
+        <li>
+          SSD
+        </li>
+
+        <li>
+          RTE
+        </li>
+
+        <li>
+          Student Service
+        </li>
+
+        <li>
+          Finance Department
+        </li>
+
+        <li>
+          IT Department
+        </li>
+
+      </ul>
+
+    </section>
+
+
+    <!-- SECTION 3 -->
+
+    <section>
+
+      <h2>
+        3. Connect the Form to Gmail
+      </h2>
+
+      <p>
+        Once the form has been created, we can connect it to
+        Gmail.
+      </p>
+
+
+      <div class="flow">
+
+        <span>
+          Student Form
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          n8n
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Gmail
+        </span>
+
+      </div>
+
+
+      <h3>
+        Gmail Configuration
+      </h3>
+
+      <p>
+        Add a Gmail node after the form node.
+      </p>
+
+
+      <h3>
+        Connected Account
+      </h3>
+
+      <div class="example-box">
+
+        <p>
+          <strong>
+            Example:
+          </strong>
+        </p>
+
+        <p>
+          example123@gmail.com
+        </p>
+
+      </div>
+
+
+      <h3>
+        Recipient
+      </h3>
+
+      <p>
+        For the workshop demonstration, you can use:
+      </p>
+
+      <div class="example-box">
+
+        <strong>
+          roshankarki4956@gmail.com
+        </strong>
+
+      </div>
+
+
+      <h3>
+        Email Subject
+      </h3>
+
+      <p>
+        Map the form's Email Subject field to the Gmail
+        subject field.
+      </p>
+
+
+      <div class="code-box">
+
+<pre><code>{{ Email Subject }}</code></pre>
+
+      </div>
+
+
+      <h3>
+        Email Body
+      </h3>
+
+      <p>
+        Map the student's Message field to the Gmail body.
+      </p>
+
+
+      <div class="code-box">
+
+<pre><code>{{ Message }}</code></pre>
+
+      </div>
+
+    </section>
+
+
+    <!-- BASIC FLOW -->
+
+    <section>
+
+      <h2>
+        Basic Automation Flow
+      </h2>
+
+
+      <div class="flow">
+
+        <span>
+          Student fills form
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          n8n receives information
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Gmail
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Email sent
+        </span>
+
+      </div>
+
+
+      <p>
+        This is our first automation.
+      </p>
+
+      <p>
+        The student does not need to manually open Gmail
+        and compose an email.
+      </p>
+
+      <p>
+        n8n handles that process automatically.
+      </p>
+
+    </section>
+
+
+    <!-- TEST -->
+
+    <section>
+
+      <h2>
+        Test the Workflow
+      </h2>
+
+      <ol>
+
+        <li>
+          Open the form.
+        </li>
+
+        <li>
+          Enter a student's email.
+        </li>
+
+        <li>
+          Select a department.
+        </li>
+
+        <li>
+          Enter an email subject.
+        </li>
+
+        <li>
+          Enter a message.
+        </li>
+
+        <li>
+          Submit the form.
+        </li>
+
+        <li>
+          Check the Gmail inbox.
+        </li>
+
+      </ol>
+
+
+      <div class="highlight">
+
+        <strong>
+          Success!
+        </strong>
+
+        <p>
+          If the email arrives automatically, your first
+          n8n automation is working.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- NEXT -->
+
+    <section>
+
+      <h2>
+        Ready for Part 2?
+      </h2>
+
+      <p>
+        Now that we have basic automation working, we can
+        make it smarter by adding AI.
+      </p>
+
+      <p>
+
+        <a href="ai-automation.html">
+          Continue to Part 2: AI Automation →
+        </a>
+
+      </p>
+
+    </section>
+
+
+    <footer>
+
+      <p>
+        n8n AI Automation Workshop
+      </p>
+
+      <p>
+        AI Horizon
+      </p>
+
+    </footer>
+
+  </main>
+
+
+  <script src="../js/script.js"></script>
+
+</body>
+
+</html>

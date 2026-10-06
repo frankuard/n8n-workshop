@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Part 3 - Discord Automation | n8n Workshop</title>
+
+  <link
+    rel="stylesheet"
+    href="../css/style.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- NAVIGATION -->
+
+  <nav class="navbar">
+
+    <div class="nav-container">
+
+      <div class="nav-links">
+
+        <a href="../index.html">
+          Home
+        </a>
+
+        <a href="basic-automation.html">
+          Part 1: Basic Automation
+        </a>
+
+        <a href="ai-automation.html">
+          Part 2: AI Automation
+        </a>
+
+        <a
+          href="discord.html"
+          class="active"
+        >
+          Part 3: Discord
+        </a>
+
+        <a href="discord-bot.html">
+          Part 4: Custom Discord Bot
+        </a>
+
+        <a href="deployment.html">
+          Part 5: Local Deployment
+        </a>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+
+  <main class="container">
+
+
+    <!-- HEADER -->
+
+    <header>
+
+      <h1>
+        Part 3: Discord Automation
+      </h1>
+
+      <p>
+        Extend our AI workflow by sending automated
+        notifications to Discord.
+      </p>
+
+    </header>
+
+
+    <!-- SECTION 14 -->
+
+    <section>
+
+      <h2>
+        14. (Optional) Add Discord Automation
+      </h2>
+
+      <p>
+        We can extend our AI automation by connecting it
+        to Discord.
+      </p>
+
+      <p>
+        This allows the AI-generated student request to be
+        displayed automatically inside a Discord channel.
+      </p>
+
+
+      <div class="flow">
+
+        <span>
+          Student Form
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          AI / Groq
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Gmail
+        </span>
+
+        <span>
+          +
+        </span>
+
+        <span>
+          Discord
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- WHY DISCORD -->
+
+    <section>
+
+      <h2>
+        14.1 Why Discord?
+      </h2>
+
+      <p>
+        Discord can be used as a notification platform for
+        our automation.
+      </p>
+
+      <p>
+        Instead of checking email every time, a team can
+        receive a notification directly inside a Discord
+        channel.
+      </p>
+
+
+      <div class="highlight">
+
+        <strong>
+          Example:
+        </strong>
+
+        <p>
+          A student submits a leave request →
+          AI processes it →
+          Gmail sends the email →
+          Discord receives a notification.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- ADD DISCORD -->
+
+    <section>
+
+      <h2>
+        14.2 Add the Discord Node
+      </h2>
+
+      <ol>
+
+        <li>
+          Open your existing n8n workflow.
+        </li>
+
+        <li>
+          Click the
+          <strong>+</strong>
+          button.
+        </li>
+
+        <li>
+          Search for
+          <strong>Discord</strong>.
+        </li>
+
+        <li>
+          Add the Discord node.
+        </li>
+
+        <li>
+          Configure your Discord credentials.
+        </li>
+
+      </ol>
+
+    </section>
+
+
+    <!-- DISCORD SERVER -->
+
+    <section>
+
+      <h2>
+        14.3 Configure the Discord Server
+      </h2>
+
+      <p>
+        Your Discord bot or integration needs access to
+        the Discord server where you want to send the message.
+      </p>
+
+
+      <h3>
+        Select the Server
+      </h3>
+
+      <p>
+        Choose the Discord server that you want to use
+        for the workshop.
+      </p>
+
+
+      <h3>
+        Select the Channel
+      </h3>
+
+      <p>
+        Choose the channel where n8n should send the
+        automated message.
+      </p>
+
+
+      <div class="warning">
+
+        <strong>
+          Important:
+        </strong>
+
+        <p>
+          Make sure the Discord integration has permission
+          to view and send messages in the selected channel.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- MESSAGE -->
+
+    <section>
+
+      <h2>
+        14.4 Create the Discord Message
+      </h2>
+
+      <p>
+        The Discord node can receive information from the
+        previous AI node.
+      </p>
+
+
+      <p>
+        We can create a message containing:
+      </p>
+
+
+      <ul>
+
+        <li>
+          Student name
+        </li>
+
+        <li>
+          Department
+        </li>
+
+        <li>
+          Subject
+        </li>
+
+        <li>
+          AI-generated email
+        </li>
+
+      </ul>
+
+
+      <h3>
+        Example Discord Message
+      </h3>
+
+
+      <div class="discord-message">
+
+        <h3>
+          New Student Request
+        </h3>
+
+        <p>
+          <strong>
+            Student:
+          </strong>
+          Roshan Karki
+        </p>
+
+        <p>
+          <strong>
+            Department:
+          </strong>
+          DSSD
+        </p>
+
+        <p>
+          <strong>
+            Subject:
+          </strong>
+          Leave Request
+        </p>
+
+        <p>
+          <strong>
+            AI-generated email:
+          </strong>
+        </p>
+
+        <p>
+          Dear DSSD,
+        </p>
+
+        <p>
+          I am feeling unwell today and will not be able
+          to attend my classes. I would therefore like to
+          request leave for today.
+        </p>
+
+        <p>
+          I would be grateful if you could kindly consider
+          my request.
+        </p>
+
+        <p>
+          Thank you for your understanding.
+        </p>
+
+        <p>
+          Kind regards,<br>
+          Roshan Karki
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- CONNECT -->
+
+    <section>
+
+      <h2>
+        14.5 Connect AI to Discord
+      </h2>
+
+      <p>
+        Connect the AI processing node to the Discord node.
+      </p>
+
+
+      <div class="flow">
+
+        <span>
+          Student Form
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Basic LLM Chain
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Discord
+        </span>
+
+      </div>
+
+
+      <p>
+        At the same time, the AI output can also continue
+        to the Gmail node.
+      </p>
+
+
+      <div class="flow">
+
+        <span>
+          AI Output
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Gmail
+        </span>
+
+        <span>
+          +
+        </span>
+
+        <span>
+          Discord
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- FINAL FLOW -->
+
+    <section>
+
+      <h2>
+        14.6 Final Discord Workflow
+      </h2>
+
+
+      <div class="flow">
+
+        <span>
+          Student Form
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          AI / Groq
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Gmail
+        </span>
+
+        <span>
+          +
+        </span>
+
+        <span>
+          Discord
+        </span>
+
+      </div>
+
+
+      <div class="highlight">
+
+        <strong>
+          Optional:
+        </strong>
+
+        <p>
+          Discord is an extension to our main workflow.
+          The core AI + Gmail automation can work without it.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- NEXT -->
+
+    <section>
+
+      <h2>
+        Ready for Part 4?
+      </h2>
+
+      <p>
+        Next, we will go one step further and create our
+        own Discord bot.
+      </p>
+
+      <p>
+
+        <a href="discord-bot.html">
+          Continue to Part 4: Custom Discord Bot →
+        </a>
+
+      </p>
+
+    </section>
+
+
+    <footer>
+
+      <p>
+        n8n AI Automation Workshop
+      </p>
+
+      <p>
+        AI Horizon
+      </p>
+
+    </footer>
+
+
+  </main>
+
+
+  <script src="../js/script.js"></script>
+
+</body>
+
+</html>

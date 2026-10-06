@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Part 5 - Local Deployment | n8n Workshop</title>
+
+  <link
+    rel="stylesheet"
+    href="../css/style.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- NAVIGATION -->
+
+  <nav class="navbar">
+
+    <div class="nav-container">
+
+      <div class="nav-links">
+
+        <a href="../index.html">
+          Home
+        </a>
+
+        <a href="basic-automation.html">
+          Part 1: Basic Automation
+        </a>
+
+        <a href="ai-automation.html">
+          Part 2: AI Automation
+        </a>
+
+        <a href="discord.html">
+          Part 3: Discord
+        </a>
+
+        <a href="discord-bot.html">
+          Part 4: Custom Discord Bot
+        </a>
+
+        <a
+          href="deployment.html"
+          class="active"
+        >
+          Part 5: Local Deployment
+        </a>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+
+  <main class="container">
+
+
+    <!-- HEADER -->
+
+    <header>
+
+      <h1>
+        Part 5: Local Deployment
+      </h1>
+
+      <p>
+        Run n8n locally using Docker Compose and expose it
+        using a Cloudflare Quick Tunnel.
+      </p>
+
+    </header>
+
+
+    <!-- SECTION 16 -->
+
+    <section>
+
+      <h2>
+        16. Local Deployment with Docker
+      </h2>
+
+      <p>
+        Up to this point, we have been using n8n through the
+        browser or cloud environment.
+      </p>
+
+      <p>
+        We can also run n8n locally on our own computer using
+        Docker.
+      </p>
+
+
+      <div class="highlight">
+
+        <strong>
+          Final setup:
+        </strong>
+
+        <p>
+          Docker → n8n → Cloudflare Quick Tunnel →
+          Public temporary URL
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- DOCKER -->
+
+    <section>
+
+      <h2>
+        16.1 Install Docker
+      </h2>
+
+
+      <h3>
+        Windows
+      </h3>
+
+      <div class="code-box">
+
+<pre><code>winget install --id Docker.DockerDesktop -e</code></pre>
+
+      </div>
+
+
+      <h3>
+        macOS
+      </h3>
+
+      <div class="code-box">
+
+<pre><code>brew install --cask docker</code></pre>
+
+      </div>
+
+
+      <h3>
+        Ubuntu / Debian
+      </h3>
+
+      <div class="code-box">
+
+<pre><code>sudo apt update
+
+sudo apt install -y docker.io docker-compose-plugin
+
+sudo systemctl enable --now docker</code></pre>
+
+      </div>
+
+
+      <h3>
+        Arch Linux
+      </h3>
+
+      <div class="code-box">
+
+<pre><code>sudo pacman -Syu docker docker-compose
+
+sudo systemctl enable --now docker</code></pre>
+
+      </div>
+
+
+      <h3>
+        Optional Docker Group Setup on Linux
+      </h3>
+
+      <div class="code-box">
+
+<pre><code>sudo usermod -aG docker $USER</code></pre>
+
+      </div>
+
+      <p>
+        Log out and log back in after adding your user to
+        the Docker group.
+      </p>
+
+    </section>
+
+
+    <!-- CREATE FOLDER -->
+
+    <section>
+
+      <h2>
+        16.2 Create the n8n Folder
+      </h2>
+
+
+      <div class="code-box">
+
+<pre><code>mkdir n8n
+
+cd n8n</code></pre>
+
+      </div>
+
+    </section>
+
+
+    <!-- COMPOSE -->
+
+    <section>
+
+      <h2>
+        16.3 Create docker-compose.yml
+      </h2>
+
+      <p>
+        Inside the n8n folder, create a file named:
+      </p>
+
+
+      <div class="code-box">
+
+<pre><code>docker-compose.yml</code></pre>
+
+      </div>
+
+
+      <p>
+        Add the following configuration:
+      </p>
+
+
+      <div class="code-box">
+
+<pre><code>services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    container_name: n8n
+    ports:
+      - "5678:5678"
+
+    environment:
+      - N8N_SECURE_COOKIE=false
+      - WEBHOOK_URL=http://localhost:5678/
+
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+    restart: unless-stopped
+
+volumes:
+  n8n_data:</code></pre>
+
+      </div>
+
+
+      <div class="highlight">
+
+        <p>
+          The volume allows your n8n data to remain available
+          even when the container is restarted.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- START -->
+
+    <section>
+
+      <h2>
+        16.4 Start n8n
+      </h2>
+
+
+      <div class="code-box">
+
+<pre><code>docker compose up -d</code></pre>
+
+      </div>
+
+
+      <p>
+        Check whether the container is running:
+      </p>
+
+
+      <div class="code-box">
+
+<pre><code>docker compose ps</code></pre>
+
+      </div>
+
+
+      <p>
+        You can also check the logs:
+      </p>
+
+
+      <div class="code-box">
+
+<pre><code>docker compose logs n8n</code></pre>
+
+      </div>
+
+    </section>
+
+
+    <!-- LOCAL -->
+
+    <section>
+
+      <h2>
+        16.5 Open n8n
+      </h2>
+
+      <p>
+        Once the container is running, open:
+      </p>
+
+
+      <div class="example-box">
+
+        <strong>
+          http://localhost:5678
+        </strong>
+
+      </div>
+
+
+      <p>
+        This opens the locally running n8n instance.
+      </p>
+
+    </section>
+
+
+    <!-- CLOUDFLARE -->
+
+    <section>
+
+      <h2>
+        16.6 Install Cloudflared
+      </h2>
+
+      <p>
+        To temporarily expose our local n8n instance to the
+        internet, we can use a Cloudflare Quick Tunnel.
+      </p>
+
+
+      <h3>
+        Windows
+      </h3>
+
+      <div class="code-box">
+
+<pre><code>winget install --id Cloudflare.cloudflared</code></pre>
+
+      </div>
+
+
+      <h3>
+        macOS
+      </h3>
+
+      <div class="code-box">
+
+<pre><code>brew install cloudflared</code></pre>
+
+      </div>
+
+
+      <h3>
+        Ubuntu / Debian
+      </h3>
+
+      <p>
+        Follow the official Cloudflare installation instructions
+        for your distribution.
+      </p>
+
+
+      <h3>
+        Arch Linux
+      </h3>
+
+      <div class="code-box">
+
+<pre><code>yay -S cloudflared</code></pre>
+
+      </div>
+
+
+      <p>
+        Check the installation:
+      </p>
+
+
+      <div class="code-box">
+
+<pre><code>cloudflared --version</code></pre>
+
+      </div>
+
+    </section>
+
+
+    <!-- QUICK TUNNEL -->
+
+    <section>
+
+      <h2>
+        16.7 Create a Cloudflare Quick Tunnel
+      </h2>
+
+      <p>
+        Make sure n8n is already running.
+      </p>
+
+
+      <p>
+        Then run:
+      </p>
+
+
+      <div class="code-box">
+
+<pre><code>cloudflared tunnel --url http://localhost:5678</code></pre>
+
+      </div>
+
+
+      <p>
+        Cloudflare will generate a temporary URL.
+      </p>
+
+
+      <div class="example-box">
+
+        <strong>
+          Example:
+        </strong>
+
+        <p>
+          https://hero-rio-stationery-appropriations.trycloudflare.com
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- WEBHOOK -->
+
+    <section>
+
+      <h2>
+        16.8 Update WEBHOOK_URL
+      </h2>
+
+      <p>
+        Open your
+        <strong>
+          docker-compose.yml
+        </strong>
+        file.
+      </p>
+
+
+      <p>
+        Replace:
+      </p>
+
+
+      <div class="code-box">
+
+<pre><code>WEBHOOK_URL=http://localhost:5678/</code></pre>
+
+      </div>
+
+
+      <p>
+        with your generated Cloudflare URL:
+      </p>
+
+
+      <div class="code-box">
+
+<pre><code>WEBHOOK_URL=https://your-generated-url.trycloudflare.com/</code></pre>
+
+      </div>
+
+
+      <p>
+        Save the file.
+      </p>
+
+    </section>
+
+
+    <!-- RESTART -->
+
+    <section>
+
+      <h2>
+        16.9 Restart n8n
+      </h2>
+
+
+      <div class="code-box">
+
+<pre><code>docker compose down
+
+docker compose up -d</code></pre>
+
+      </div>
+
+
+      <p>
+        Now open your Cloudflare URL.
+      </p>
+
+    </section>
+
+
+    <!-- OWNER -->
+
+    <section>
+
+      <h2>
+        16.10 Create the n8n Owner Account
+      </h2>
+
+      <p>
+        When opening n8n for the first time, you will be asked
+        to create the initial owner account.
+      </p>
+
+      <p>
+        Follow the instructions shown by n8n.
+      </p>
+
+    </section>
+
+
+    <!-- TEST -->
+
+    <section>
+
+      <h2>
+        16.11 Test the Workshop Workflow
+      </h2>
+
+      <ol>
+
+        <li>
+          Open the n8n instance.
+        </li>
+
+        <li>
+          Open the workshop workflow.
+        </li>
+
+        <li>
+          Submit the student form.
+        </li>
+
+        <li>
+          Check the AI response.
+        </li>
+
+        <li>
+          Check Gmail.
+        </li>
+
+        <li>
+          Check Discord if Discord automation is enabled.
+        </li>
+
+      </ol>
+
+
+      <div class="highlight">
+
+        <strong>
+          You now have a locally running n8n AI automation system.
+        </strong>
+
+      </div>
+
+    </section>
+
+
+    <!-- COMMANDS -->
+
+    <section>
+
+      <h2>
+        16.12 Useful Docker Commands
+      </h2>
+
+
+      <h3>
+        Start n8n
+      </h3>
+
+      <div class="code-box">
+
+<pre><code>docker compose up -d</code></pre>
+
+      </div>
+
+
+      <h3>
+        Stop n8n
+      </h3>
+
+      <div class="code-box">
+
+<pre><code>docker compose down</code></pre>
+
+      </div>
+
+
+      <h3>
+        Restart n8n
+      </h3>
+
+      <div class="code-box">
+
+<pre><code>docker compose restart</code></pre>
+
+      </div>
+
+
+      <h3>
+        Check Status
+      </h3>
+
+      <div class="code-box">
+
+<pre><code>docker compose ps</code></pre>
+
+      </div>
+
+
+      <h3>
+        View Logs
+      </h3>
+
+      <div class="code-box">
+
+<pre><code>docker compose logs n8n</code></pre>
+
+      </div>
+
+
+      <h3>
+        Pull Latest Image
+      </h3>
+
+      <div class="code-box">
+
+<pre><code>docker compose pull</code></pre>
+
+      </div>
+
+    </section>
+
+
+    <!-- TUNNEL -->
+
+    <section>
+
+      <h2>
+        16.13 Stop the Cloudflare Tunnel
+      </h2>
+
+      <p>
+        The Quick Tunnel runs in your terminal.
+      </p>
+
+      <p>
+        To stop it, press:
+      </p>
+
+
+      <div class="code-box">
+
+<pre><code>Ctrl + C</code></pre>
+
+      </div>
+
+
+      <p>
+        When you start a new Quick Tunnel, Cloudflare may
+        generate a new URL.
+      </p>
+
+    </section>
+
+
+    <!-- URL CHANGE -->
+
+    <section>
+
+      <h2>
+        16.14 If the URL Changes
+      </h2>
+
+      <p>
+        Quick Tunnel URLs are temporary.
+      </p>
+
+      <p>
+        If you receive a new URL, update the
+        <strong>WEBHOOK_URL</strong>
+        inside your Docker Compose file.
+      </p>
+
+
+      <div class="code-box">
+
+<pre><code>WEBHOOK_URL=https://new-url.trycloudflare.com/</code></pre>
+
+      </div>
+
+
+      <p>
+        Then recreate the container:
+      </p>
+
+
+      <div class="code-box">
+
+<pre><code>docker compose down
+
+docker compose up -d</code></pre>
+
+      </div>
+
+    </section>
+
+
+    <!-- IMPORTANT -->
+
+    <section>
+
+      <h2>
+        16.15 Important Notes
+      </h2>
+
+
+      <div class="warning">
+
+        <ul>
+
+          <li>
+            Cloudflare Quick Tunnel URLs are temporary.
+          </li>
+
+          <li>
+            Quick Tunnels are intended for testing and development.
+          </li>
+
+          <li>
+            Do not expose sensitive information.
+          </li>
+
+          <li>
+            Never share API keys or bot tokens.
+          </li>
+
+          <li>
+            Do not treat a Quick Tunnel as a production deployment.
+          </li>
+
+        </ul>
+
+      </div>
+
+    </section>
+
+
+    <!-- FINAL ARCHITECTURE -->
+
+    <section>
+
+      <h2>
+        16.16 Final Architecture
+      </h2>
+
+
+      <div class="flow">
+
+        <span>
+          Student
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Form
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          n8n
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Groq AI
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Gmail
+        </span>
+
+        <span>
+          +
+        </span>
+
+        <span>
+          Discord
+        </span>
+
+      </div>
+
+
+      <div class="highlight">
+
+        <h3>
+          Workshop Complete!
+        </h3>
+
+        <p>
+          We have built an AI-powered automation using n8n,
+          connected it to Groq, Gmail and Discord, and learned
+          how to run n8n locally using Docker.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- HOME -->
+
+    <section>
+
+      <h2>
+        Back to Workshop Home
+      </h2>
+
+      <p>
+
+        <a href="../index.html">
+          ← Return to Workshop Home
+        </a>
+
+      </p>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+      <p>
+        n8n AI Automation Workshop
+      </p>
+
+      <p>
+        AI Horizon
+      </p>
+
+    </footer>
+
+
+  </main>
+
+
+  <script src="../js/script.js"></script>
+
+</body>
+
+</html>

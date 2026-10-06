@@ -1,0 +1,1562 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Part 2 - AI Automation | n8n Workshop</title>
+
+  <link
+    rel="stylesheet"
+    href="../css/style.css"
+  />
+</head>
+
+<body>
+
+  <!-- =========================
+       NAVIGATION
+  ========================== -->
+
+  <nav class="navbar">
+
+    <div class="nav-container">
+
+      <div class="nav-links">
+
+        <a href="../index.html">
+          Home
+        </a>
+
+        <a href="basic-automation.html">
+          Part 1: Basic Automation
+        </a>
+
+        <a
+          href="ai-automation.html"
+          class="active"
+        >
+          Part 2: AI Automation
+        </a>
+
+        <a href="discord.html">
+          Part 3: Discord
+        </a>
+
+        <a href="discord-bot.html">
+          Part 4: Custom Discord Bot
+        </a>
+
+        <a href="deployment.html">
+          Part 5: Local Deployment
+        </a>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+
+  <!-- =========================
+       MAIN CONTENT
+  ========================== -->
+
+  <main class="container">
+
+    <!-- =========================
+         PAGE INTRO
+    ========================== -->
+
+    <header>
+
+      <h1>
+        Part 2: AI Automation
+      </h1>
+
+      <p>
+        Add Groq AI to transform student requests into
+        professional emails automatically.
+      </p>
+
+    </header>
+
+
+    <!-- =========================
+         SECTION 4
+    ========================== -->
+
+    <section>
+
+      <h2>
+        4. Part Two: Add AI
+      </h2>
+
+      <p>
+        In Part 1, we created a basic automation where a student
+        submits a form and n8n sends the information through Gmail.
+      </p>
+
+      <p>
+        Now we are going to make the workflow smarter by adding
+        Artificial Intelligence.
+      </p>
+
+      <p>
+        Instead of simply sending the student's original message,
+        AI will understand the student's request and turn it into
+        a clear, polite, and professional email.
+      </p>
+
+
+      <div class="highlight">
+
+        <strong>
+          The idea:
+        </strong>
+
+        <p>
+          Student writes normally →
+          AI understands the request →
+          AI creates a professional email →
+          Gmail sends it automatically.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SECTION 5
+    ========================== -->
+
+    <section>
+
+      <h2>
+        5. Change the Form for AI Automation
+      </h2>
+
+      <p>
+        Our original form only collected basic information.
+        For AI automation, we need a little more information so
+        that the AI can understand who the student is and what
+        they are asking for.
+      </p>
+
+
+      <h3>
+        Updated Form
+      </h3>
+
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              Field
+            </th>
+
+            <th>
+              Type
+            </th>
+
+            <th>
+              Example
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <tr>
+
+            <td>
+              Student Name
+            </td>
+
+            <td>
+              Text
+            </td>
+
+            <td>
+              Roshan Karki
+            </td>
+
+          </tr>
+
+
+          <tr>
+
+            <td>
+              Student Email
+            </td>
+
+            <td>
+              Email
+            </td>
+
+            <td>
+              student@gmail.com
+            </td>
+
+          </tr>
+
+
+          <tr>
+
+            <td>
+              Department
+            </td>
+
+            <td>
+              Dropdown
+            </td>
+
+            <td>
+              DSSD
+            </td>
+
+          </tr>
+
+
+          <tr>
+
+            <td>
+              Subject
+            </td>
+
+            <td>
+              Text
+            </td>
+
+            <td>
+              Leave Request
+            </td>
+
+          </tr>
+
+
+          <tr>
+
+            <td>
+              What do you need?
+            </td>
+
+            <td>
+              Textarea
+            </td>
+
+            <td>
+              I am feeling sick today and I cannot attend
+              class. I would like to request leave for today.
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+
+      <h3>
+        Example Student Input
+      </h3>
+
+
+      <div class="example-box">
+
+        <p>
+          <strong>Student Name:</strong>
+          Roshan Karki
+        </p>
+
+        <p>
+          <strong>Student Email:</strong>
+          student@gmail.com
+        </p>
+
+        <p>
+          <strong>Department:</strong>
+          DSSD
+        </p>
+
+        <p>
+          <strong>Subject:</strong>
+          Leave Request
+        </p>
+
+        <p>
+          <strong>What do you need?</strong>
+        </p>
+
+        <p>
+          I am feeling sick today and I cannot attend class.
+          I would like to request leave for today.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SECTION 6
+    ========================== -->
+
+    <section>
+
+      <h2>
+        6. Add the Basic LLM Chain
+      </h2>
+
+      <p>
+        The next step is to add an AI node to our n8n workflow.
+      </p>
+
+      <p>
+        n8n provides a node called
+        <strong>Basic LLM Chain</strong>
+        which allows us to tell an AI model what we want it to do.
+      </p>
+
+
+      <h3>
+        Add the Node
+      </h3>
+
+
+      <ol>
+
+        <li>
+          Open your n8n workflow.
+        </li>
+
+        <li>
+          Click the
+          <strong>+</strong>
+          button.
+        </li>
+
+        <li>
+          Search for
+          <strong>Basic LLM Chain</strong>.
+        </li>
+
+        <li>
+          Add the node to your workflow.
+        </li>
+
+      </ol>
+
+
+      <h3>
+        Connect the Form
+      </h3>
+
+      <p>
+        Connect the output of your student form to the
+        <strong>Basic LLM Chain</strong>.
+      </p>
+
+
+      <div class="flow">
+
+        <span>
+          Student Form
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Basic LLM Chain
+        </span>
+
+      </div>
+
+
+      <h3>
+        Add the Groq Chat Model
+      </h3>
+
+      <p>
+        The Basic LLM Chain needs a language model to generate
+        the response.
+      </p>
+
+      <p>
+        For this workshop, we will use
+        <strong>Groq</strong>.
+      </p>
+
+
+      <ol>
+
+        <li>
+          Open the Basic LLM Chain node.
+        </li>
+
+        <li>
+          Find the model input.
+        </li>
+
+        <li>
+          Select
+          <strong>Groq Chat Model</strong>.
+        </li>
+
+        <li>
+          Connect the Groq Chat Model to the model input.
+        </li>
+
+      </ol>
+
+
+      <h3>
+        Groq Console
+      </h3>
+
+      <p>
+        Open the Groq Console:
+      </p>
+
+      <p>
+
+        <a
+          href="https://console.groq.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          https://console.groq.com/
+        </a>
+
+      </p>
+
+
+      <h3>
+        Create a Groq API Key
+      </h3>
+
+      <ol>
+
+        <li>
+          Sign in to your Groq account.
+        </li>
+
+        <li>
+          Open the API Keys section.
+        </li>
+
+        <li>
+          Create a new API key.
+        </li>
+
+        <li>
+          Give the key a name such as
+          <strong>n8n-workshop</strong>.
+        </li>
+
+        <li>
+          Copy the generated API key.
+        </li>
+
+      </ol>
+
+
+      <div class="warning">
+
+        <h3>
+          Important Security Rule
+        </h3>
+
+        <p>
+          Never share your API key.
+        </p>
+
+        <ul>
+
+          <li>
+            Do not post it on GitHub.
+          </li>
+
+          <li>
+            Do not send it to other people.
+          </li>
+
+          <li>
+            Do not include it in public screenshots.
+          </li>
+
+          <li>
+            Do not hard-code it inside public code.
+          </li>
+
+        </ul>
+
+      </div>
+
+
+      <h3>
+        Configure Groq in n8n
+      </h3>
+
+      <ol>
+
+        <li>
+          Open the
+          <strong>Groq Chat Model</strong>
+          node.
+        </li>
+
+        <li>
+          Create a new Groq credential.
+        </li>
+
+        <li>
+          Paste your Groq API key.
+        </li>
+
+        <li>
+          Save the credential.
+        </li>
+
+        <li>
+          Select an available chat model from the model dropdown.
+        </li>
+
+      </ol>
+
+
+      <h3>
+        Understand the Two Nodes
+      </h3>
+
+
+      <div class="two-column">
+
+        <div class="info-card">
+
+          <h3>
+            Basic LLM Chain
+          </h3>
+
+          <p>
+            The Basic LLM Chain controls what we want the AI
+            to do.
+          </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+          <h3>
+            Groq Chat Model
+          </h3>
+
+          <p>
+            The Groq Chat Model provides the language model
+            that generates the response.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="flow">
+
+        <span>
+          Student Form
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Basic LLM Chain
+        </span>
+
+        <span>
+          ↑
+        </span>
+
+        <span>
+          Groq Chat Model
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SECTION 7
+    ========================== -->
+
+    <section>
+
+      <h2>
+        7. AI Prompt
+      </h2>
+
+      <p>
+        The prompt is one of the most important parts of the
+        AI automation.
+      </p>
+
+      <p>
+        It tells the AI what role it has, what information it
+        receives, and exactly how it should respond.
+      </p>
+
+
+      <h3>
+        Copy this prompt into the Basic LLM Chain
+      </h3>
+
+
+      <div class="code-box">
+
+<pre><code>You are an AI email assistant for college students. Your job is to
+take a student's request, question, complaint, or concern and turn it
+into a clear, polite, and professional email that can be sent to the
+college department or faculty selected by the student.
+
+Student Information:
+
+Name:
+{{ $json['Student Name'] }}
+
+Email:
+{{ $json['Student Email'] }}
+
+Department / Faculty:
+{{ $json['Department'] }}
+
+Subject:
+{{ $json['Subject'] }}
+
+Student's Request:
+{{ $json['What do you need?'] }}
+
+Instructions:
+
+1. Carefully understand what the student is trying to communicate.
+
+2. Rewrite the student's request into a clear, polite, and
+professional email suitable for communication with a college
+department or faculty.
+
+3. Keep the student's original meaning and intention.
+Do not change what the student is asking for.
+
+4. The request may involve any normal college-related matter,
+including leave requests, academic questions, examination issues,
+document requests, technical problems, fee-related questions,
+complaints, or general concerns.
+
+5. Address the selected department or faculty appropriately.
+
+6. Use a respectful, friendly, and professional tone.
+
+7. Make the request clear and easy for the recipient to understand.
+
+8. Do not invent information, policies, dates, decisions, excuses,
+or other details that the student did not provide.
+
+9. Do not promise that the request will be approved or accepted.
+The selected department or faculty will make the final decision.
+
+10. If the student's request is unclear, do not invent missing
+details. Keep the wording general and politely ask the department
+or faculty for clarification if necessary.
+
+11. Keep the email reasonably concise.
+Do not make it unnecessarily long.
+
+12. End the email politely with the student's name.
+
+13. Return only the email body.
+
+14. Do not include the subject line, explanation, analysis,
+or any additional commentary.
+
+The final output should be a natural, respectful email that is
+ready to be sent to the selected college department or faculty.</code></pre>
+
+      </div>
+
+
+      <div class="highlight">
+
+        <strong>
+          Remember:
+        </strong>
+
+        <p>
+          The AI should improve the student's wording without
+          changing what the student actually means.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SECTION 8
+    ========================== -->
+
+    <section>
+
+      <h2>
+        8. Test the AI
+      </h2>
+
+      <p>
+        Now let's test whether the AI can understand the student's
+        request and generate a professional email.
+      </p>
+
+
+      <h3>
+        Test Data
+      </h3>
+
+
+      <div class="example-box">
+
+        <p>
+          <strong>Name:</strong>
+          Roshan Karki
+        </p>
+
+        <p>
+          <strong>Email:</strong>
+          student@gmail.com
+        </p>
+
+        <p>
+          <strong>Department:</strong>
+          DSSD
+        </p>
+
+        <p>
+          <strong>Subject:</strong>
+          Leave Request
+        </p>
+
+        <p>
+          <strong>Request:</strong>
+        </p>
+
+        <p>
+          I am feeling sick today and I cannot attend class.
+          I would like to request leave for today.
+        </p>
+
+      </div>
+
+
+      <h3>
+        Expected AI Output
+      </h3>
+
+
+      <div class="example-box">
+
+        <p>
+          Dear DSSD,
+        </p>
+
+        <p>
+          I am feeling unwell today and will not be able to
+          attend my classes. I would therefore like to request
+          leave for today.
+        </p>
+
+        <p>
+          I would be grateful if you could kindly consider
+          my request.
+        </p>
+
+        <p>
+          Thank you for your understanding.
+        </p>
+
+        <p>
+          Kind regards,<br />
+          Roshan Karki
+        </p>
+
+      </div>
+
+
+      <h3>
+        What Just Happened?
+      </h3>
+
+      <p>
+        The student did not have to write a perfectly formatted
+        email.
+      </p>
+
+      <p>
+        They simply explained what they needed in normal language.
+      </p>
+
+      <p>
+        The AI understood the request and converted it into
+        professional communication.
+      </p>
+
+
+      <div class="flow">
+
+        <span>
+          Student's Words
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          AI
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Professional Email
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SECTION 9
+    ========================== -->
+
+    <section>
+
+      <h2>
+        9. Connect AI to Gmail
+      </h2>
+
+      <p>
+        Once the AI generates the professional email, we can
+        send its output through Gmail.
+      </p>
+
+
+      <h3>
+        Gmail Node
+      </h3>
+
+      <p>
+        Add or use the Gmail node from Part 1.
+      </p>
+
+
+      <h3>
+        Subject
+      </h3>
+
+      <p>
+        Use the subject submitted by the student.
+      </p>
+
+
+      <div class="code-box">
+
+<pre><code>{{ Subject }}</code></pre>
+
+      </div>
+
+
+      <h3>
+        Body
+      </h3>
+
+      <p>
+        Instead of using the student's original message,
+        use the output generated by the Basic LLM Chain.
+      </p>
+
+
+      <h3>
+        Recipient
+      </h3>
+
+      <p>
+        The selected department or faculty should determine
+        where the email is sent.
+      </p>
+
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              Department
+            </th>
+
+            <th>
+              Workshop Demo Email
+            </th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+
+            <td>
+              DSSD
+            </td>
+
+            <td>
+              roshankarki4956@gmail.com
+            </td>
+
+          </tr>
+
+          <tr>
+
+            <td>
+              RTE
+            </td>
+
+            <td>
+              roshankarki4956@gmail.com
+            </td>
+
+          </tr>
+
+          <tr>
+
+            <td>
+              Student Service
+            </td>
+
+            <td>
+              roshankarki4956@gmail.com
+            </td>
+
+          </tr>
+
+          <tr>
+
+            <td>
+              Academic Department
+            </td>
+
+            <td>
+              roshankarki4956@gmail.com
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+
+      <div class="highlight">
+
+        <strong>
+          Workshop note:
+        </strong>
+
+        <p>
+          For the workshop demonstration, all departments can
+          temporarily send to the same demo email address.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SECTION 10
+    ========================== -->
+
+    <section>
+
+      <h2>
+        10. Live Demonstration
+      </h2>
+
+      <p>
+        Now let's run the complete automation.
+      </p>
+
+
+      <h3>
+        Step 1
+      </h3>
+
+      <p>
+        Open the student form.
+      </p>
+
+
+      <h3>
+        Step 2
+      </h3>
+
+      <p>
+        Enter the student's information.
+      </p>
+
+
+      <h3>
+        Step 3
+      </h3>
+
+      <p>
+        Submit the form.
+      </p>
+
+
+      <h3>
+        Step 4
+      </h3>
+
+      <p>
+        n8n receives the form data.
+      </p>
+
+
+      <h3>
+        Step 5
+      </h3>
+
+      <p>
+        The Basic LLM Chain sends the information to the
+        Groq Chat Model.
+      </p>
+
+
+      <h3>
+        Step 6
+      </h3>
+
+      <p>
+        The AI generates a professional email.
+      </p>
+
+
+      <h3>
+        Step 7
+      </h3>
+
+      <p>
+        Gmail sends the generated email.
+      </p>
+
+
+      <div class="flow">
+
+        <span>
+          Form
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          n8n
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Groq AI
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Gmail
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SECTION 11
+    ========================== -->
+
+    <section>
+
+      <h2>
+        11. Final AI Automation
+      </h2>
+
+      <p>
+        At this point, our workflow should look like this:
+      </p>
+
+
+      <div class="flow">
+
+        <span>
+          Student Form
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Basic LLM Chain
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Groq Chat Model
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Gmail
+        </span>
+
+      </div>
+
+
+      <h3>
+        What Happens Automatically?
+      </h3>
+
+
+      <ol>
+
+        <li>
+          A student submits a request.
+        </li>
+
+        <li>
+          n8n receives the information.
+        </li>
+
+        <li>
+          The AI understands the request.
+        </li>
+
+        <li>
+          The AI creates a professional email.
+        </li>
+
+        <li>
+          Gmail sends the email.
+        </li>
+
+      </ol>
+
+
+      <div class="highlight">
+
+        <p>
+          The student only needs to explain what they need.
+        </p>
+
+        <p>
+          The automation handles the rest.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SECTION 12
+    ========================== -->
+
+    <section>
+
+      <h2>
+        12. The Important Difference
+      </h2>
+
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              Basic Automation
+            </th>
+
+            <th>
+              AI Automation
+            </th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+
+            <td>
+              Sends the student's original message
+            </td>
+
+            <td>
+              Understands and rewrites the message
+            </td>
+
+          </tr>
+
+
+          <tr>
+
+            <td>
+              Fixed message
+            </td>
+
+            <td>
+              AI-generated message
+            </td>
+
+          </tr>
+
+
+          <tr>
+
+            <td>
+              Limited language understanding
+            </td>
+
+            <td>
+              Natural language understanding
+            </td>
+
+          </tr>
+
+
+          <tr>
+
+            <td>
+              Mainly follows predefined instructions
+            </td>
+
+            <td>
+              Can interpret different student requests
+            </td>
+
+          </tr>
+
+
+          <tr>
+
+            <td>
+              No AI model
+            </td>
+
+            <td>
+              Uses a language model
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+
+      <h3>
+        The Main Idea
+      </h3>
+
+      <p>
+        Traditional automation follows predefined rules.
+      </p>
+
+      <p>
+        AI automation allows the workflow to understand
+        natural language and generate useful responses.
+      </p>
+
+
+      <div class="flow">
+
+        <span>
+          Automation
+        </span>
+
+        <span>
+          +
+        </span>
+
+        <span>
+          AI
+        </span>
+
+        <span>
+          =
+        </span>
+
+        <span>
+          Intelligent Automation
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SECTION 13
+    ========================== -->
+
+    <section>
+
+      <h2>
+        13. What We Have Built
+      </h2>
+
+      <p>
+        We have now upgraded our original n8n workflow into
+        an AI-powered automation system.
+      </p>
+
+
+      <h3>
+        The Complete Process
+      </h3>
+
+
+      <div class="flow">
+
+        <span>
+          Student
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Form
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          n8n
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Groq AI
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Professional Email
+        </span>
+
+        <span>
+          →
+        </span>
+
+        <span>
+          Gmail
+        </span>
+
+      </div>
+
+
+      <div class="two-column">
+
+        <div class="info-card">
+
+          <h3>
+            n8n
+          </h3>
+
+          <p>
+            Connects all the different services and controls
+            the workflow.
+          </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+          <h3>
+            Groq AI
+          </h3>
+
+          <p>
+            Understands the student's request and generates
+            the professional email.
+          </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+          <h3>
+            Gmail
+          </h3>
+
+          <p>
+            Sends the final email automatically.
+          </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+          <h3>
+            Student Form
+          </h3>
+
+          <p>
+            Collects the information required by the workflow.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="highlight">
+
+        <h3>
+          Core Concept
+        </h3>
+
+        <p>
+          <strong>Automation</strong>
+          tells the system what to do.
+        </p>
+
+        <p>
+          <strong>AI</strong>
+          allows the system to understand and generate
+          information.
+        </p>
+
+        <p>
+          <strong>n8n</strong>
+          connects everything together.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         NEXT PART
+    ========================== -->
+
+    <section>
+
+      <h2>
+        Ready for Part 3?
+      </h2>
+
+      <p>
+        In the next part, we will extend this automation
+        by connecting it to Discord.
+      </p>
+
+      <p>
+
+        <a href="discord.html">
+          Continue to Part 3: Discord Automation →
+        </a>
+
+      </p>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+      <p>
+        n8n AI Automation Workshop
+      </p>
+
+      <p>
+        AI Horizon
+      </p>
+
+    </footer>
+
+  </main>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
+  <script src="../js/script.js"></script>
+
+</body>
+
+</html>
