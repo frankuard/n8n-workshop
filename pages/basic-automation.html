@@ -120,12 +120,12 @@
     <section>
 
       <h2>
-        2. Create the Student Form
+        2. Create the Form with whatever field that you desire
       </h2>
 
       <p>
         The first step is to create a form that collects the
-        information required from the student.
+        information required to send the gmail.
       </p>
 
 
@@ -179,7 +179,7 @@
           <tr>
 
             <td>
-              Department / Faculty
+              Department
             </td>
 
             <td>
@@ -232,7 +232,7 @@
 
 
       <h3>
-        Department Options
+        Department Options (Examples)
       </h3>
 
 
@@ -265,121 +265,408 @@
 
     <!-- SECTION 3 -->
 
-    <section>
+    <!-- SECTION 3 -->
 
-      <h2>
-        3. Connect the Form to Gmail
-      </h2>
+<section>
 
-      <p>
-        Once the form has been created, we can connect it to
-        Gmail.
-      </p>
+  <h2>
+    3. Connect the Form to Gmail
+  </h2>
 
-
-      <div class="flow">
-
-        <span>
-          Student Form
-        </span>
-
-        <span>
-          →
-        </span>
-
-        <span>
-          n8n
-        </span>
-
-        <span>
-          →
-        </span>
-
-        <span>
-          Gmail
-        </span>
-
-      </div>
+  <p>
+    Once the form has been created, we can connect it to
+    Gmail. This allows n8n to automatically send an email
+    whenever a student submits the form.
+  </p>
 
 
-      <h3>
-        Gmail Configuration
-      </h3>
+  <div class="flow">
 
-      <p>
-        Add a Gmail node after the form node.
-      </p>
+    <span>
+      Student Form
+    </span>
 
+    <span>
+      →
+    </span>
 
-      <h3>
-        Connected Account
-      </h3>
+    <span>
+      Gmail
+    </span>
 
-      <div class="example-box">
-
-        <p>
-          <strong>
-            Example:
-          </strong>
-        </p>
-
-        <p>
-          example123@gmail.com
-        </p>
-
-      </div>
+  </div>
 
 
-      <h3>
-        Recipient
-      </h3>
+  <h3>
+    Gmail Configuration
+  </h3>
 
-      <p>
-        For the workshop demonstration, you can use:
-      </p>
+  <p>
+    Add a <strong>Gmail</strong> node after the Form Trigger
+    node.
+  </p>
 
-      <div class="example-box">
-
-        <strong>
-          roshankarki4956@gmail.com
-        </strong>
-
-      </div>
+  <p>
+    The Gmail node will take the information received from
+    the form and use it to send an email automatically.
+  </p>
 
 
-      <h3>
+  <h3>
+    Connected Account
+  </h3>
+
+  <p>
+    In the Gmail node, find the
+    <strong>Credential</strong> section and click
+    <strong>Create New Credential</strong>.
+  </p>
+
+  <div class="example-box">
+
+    <p>
+      <strong>Example account:</strong>
+    </p>
+
+    <p>
+      example123@gmail.com
+    </p>
+
+  </div>
+
+
+  <h3>
+    Set Up Gmail Credentials
+  </h3>
+
+  <ol>
+
+    <li>
+      Open the <strong>Gmail</strong> node in n8n.
+    </li>
+
+    <li>
+      Under <strong>Credential</strong>, click
+      <strong>Create New Credential</strong>.
+    </li>
+
+    <li>
+      n8n will open the Google authentication page.
+    </li>
+
+    <li>
+      Sign in using the Google account that you want to
+      connect to n8n.
+    </li>
+
+    <li>
+      Review the requested permissions.
+    </li>
+
+    <li>
+      Allow n8n to access the required Gmail functionality.
+    </li>
+
+    <li>
+      Return to n8n and confirm that your Gmail credential
+      is connected successfully.
+    </li>
+
+  </ol>
+
+
+  <div class="warning">
+
+    <strong>Important:</strong>
+
+    <p>
+      Never share your Google password, Gmail credentials,
+      API keys, or other private authentication information
+      with other participants.
+    </p>
+
+    <p>
+      Each participant should connect their own authorised
+      Gmail account when creating their workflow.
+    </p>
+
+  </div>
+
+
+  <h3>
+    Recipient
+  </h3>
+
+  <p>
+    In the <strong>To</strong> field, enter the Gmail address
+    where you want the automated message to be sent.
+  </p>
+
+  <div class="example-box">
+
+    <p>
+      <strong>Workshop example:</strong>
+    </p>
+
+    <p>
+      test123@gmail.com
+    </p>
+
+  </div>
+
+  <p>
+    For the workshop demonstration, we can use one demo
+    email address. In a real college automation, this could
+    be changed depending on the selected department.
+  </p>
+
+
+  <h3>
+    Resource and Operation
+  </h3>
+
+  <p>
+    Configure the Gmail node to send an email message.
+  </p>
+
+  <table>
+
+    <thead>
+
+      <tr>
+
+        <th>
+          Setting
+        </th>
+
+        <th>
+          Value
+        </th>
+
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr>
+
+        <td>
+          Resource
+        </td>
+
+        <td>
+          Message
+        </td>
+
+      </tr>
+
+      <tr>
+
+        <td>
+          Operation
+        </td>
+
+        <td>
+          Send
+        </td>
+
+      </tr>
+
+      <tr>
+
+        <td>
+          Credential
+        </td>
+
+        <td>
+          Your connected Gmail account
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+
+  <h3>
+    Email Subject
+  </h3>
+
+  <p>
+    Map the form's <strong>Email Subject</strong> field to
+    the Gmail subject field.
+  </p>
+
+  <div class="copy-container">
+
+    <div class="copy-header">
+
+      <span>
         Email Subject
-      </h3>
+      </span>
 
-      <p>
-        Map the form's Email Subject field to the Gmail
-        subject field.
-      </p>
+      <button
+        class="copy-button"
+        onclick="copyCode(this)"
+      >
+        Copy
+      </button>
+
+    </div>
+
+    <pre><code>{{ Email Subject }}</code></pre>
+
+  </div>
 
 
-      <div class="code-box">
+  <h3>
+    Email Body
+  </h3>
 
-<pre><code>{{ Email Subject }}</code></pre>
+  <p>
+    Map the form's <strong>Message</strong> field to the
+    Gmail message body.
+  </p>
 
-      </div>
+  <div class="copy-container">
 
+    <div class="copy-header">
 
-      <h3>
+      <span>
         Email Body
-      </h3>
+      </span>
 
-      <p>
-        Map the student's Message field to the Gmail body.
-      </p>
+      <button
+        class="copy-button"
+        onclick="copyCode(this)"
+      >
+        Copy
+      </button>
+
+    </div>
+
+    <pre><code>{{ Message }}</code></pre>
+
+  </div>
 
 
-      <div class="code-box">
+  <h3>
+    Final Gmail Configuration
+  </h3>
 
-<pre><code>{{ Message }}</code></pre>
+  <table>
 
-      </div>
+    <thead>
 
-    </section>
+      <tr>
+
+        <th>
+          Gmail Field
+        </th>
+
+        <th>
+          What to enter
+        </th>
+
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr>
+
+        <td>
+          Credential
+        </td>
+
+        <td>
+          Your connected Gmail account
+        </td>
+
+      </tr>
+
+      <tr>
+
+        <td>
+          Resource
+        </td>
+
+        <td>
+          Message
+        </td>
+
+      </tr>
+
+      <tr>
+
+        <td>
+          Operation
+        </td>
+
+        <td>
+          Send
+        </td>
+
+      </tr>
+
+      <tr>
+
+        <td>
+          To
+        </td>
+
+        <td>
+          test123@gmail.com
+        </td>
+
+      </tr>
+
+      <tr>
+
+        <td>
+          Subject
+        </td>
+
+        <td>
+          {{ Email Subject }}
+        </td>
+
+      </tr>
+
+      <tr>
+
+        <td>
+          Message
+        </td>
+
+        <td>
+          {{ Message }}
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+
+  <div class="highlight">
+
+    <strong>How it works:</strong>
+
+    <p>
+      The Form Trigger collects the student's information.
+      n8n then passes that information to the Gmail node.
+      The Gmail node uses the student's subject and message
+      to automatically send the email.
+    </p>
+
+  </div>
+
+</section>
 
 
     <!-- BASIC FLOW -->
@@ -394,7 +681,7 @@
       <div class="flow">
 
         <span>
-          Student fills form
+         You fill the form
         </span>
 
         <span>
@@ -429,7 +716,7 @@
       </p>
 
       <p>
-        The student does not need to manually open Gmail
+        You do not need to manually open Gmail
         and compose an email.
       </p>
 
